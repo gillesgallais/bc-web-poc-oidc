@@ -1,0 +1,74 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+
+framework:
+    session:
+        name: "php-sample"
+    #esi:             ~
+    translator:      { fallback: "%locale%" }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: false
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # handler_id set to null will use default session handler from php.ini
+        handler_id:  ~
+    fragments:       ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+
+# Assetic Configuration
+assetic:
+    debug:          "%kernel.debug%"
+    use_controller: false
+    bundles:        [ ]
+    #java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        #closure:
+        #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
+        #yui_css:
+        #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+
+
+waldo_oic_rp:
+    http_client:
+        timeout: 10
+        verify_peer: false
+    base_url: "%base_url%"
+    client_id: "%client_id%"
+    client_secret: "%client_secret%"
+    issuer: "%oic_issuer%"
+    display: page
+    scope: openid profile email phone roles
+    authentication_ttl: 50000
+    token_ttl: 50000
+    userinfo_signed_response_alg: RS512
+    id_token_signed_response_alg: RS256
+    jwk_url: "%jwk_url%"
+    endpoints_url: 
+        authorization: "%endpoints_url_authorization%"
+        token: "%endpoints_url_token%"
+        userinfo: "%endpoints_url_userinfo%"
+        logout: "%endpoints_url_logout%"
+    enabled_state: false
+    enabled_nonce: false
+    enduserinfo_request_method: GET
+#    private_rsa_path: "%kernel.root_dir%/../src/Waldo/OpenIdConnect/RelyingPartyBundle/Resources/rsa_key/id_rsa"
+#    public_rsa_path: "%kernel.root_dir%/../src/Waldo/OpenIdConnect/RelyingPartyBundle/Resources/rsa_key/id_rsa.pub"
+        
+#
